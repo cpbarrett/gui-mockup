@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="modPartScreen" fx:controller="sample.PartController" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -127,7 +127,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Exit" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Cancel" GridPane.columnIndex="4" GridPane.rowIndex="7" onAction="#cancelModPartButtAction"/>
                </children>
             </GridPane>
       </children>

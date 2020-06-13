@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:controller="sample.PartController" fx:id="addPartScreen" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -120,14 +120,14 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="7" onAction="#saveButtAction"/>
                   <TextField prefWidth="149.0" promptText="Max" GridPane.columnIndex="4" GridPane.rowIndex="5" />
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="110.0" text="Min" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="5">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Exit" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Cancel" GridPane.columnIndex="4" GridPane.rowIndex="7" onAction="#cancelPartButtAction"/>
                </children>
             </GridPane>
       </children>
