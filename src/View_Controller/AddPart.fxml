@@ -8,6 +8,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:controller="sample.PartController" fx:id="addPartScreen" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="addPartScreen" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.PartController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -77,8 +78,11 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <RadioButton contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="111.0" text="Outsourced" GridPane.columnIndex="3" />
-                  <RadioButton contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="110.0" selected="true" text="In-House" GridPane.columnIndex="2" />
+                  <RadioButton contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="111.0" text="Outsourced" GridPane.columnIndex="3">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="group" />
+                     </toggleGroup></RadioButton>
+                  <RadioButton contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="110.0" selected="true" text="In-House" toggleGroup="$group" GridPane.columnIndex="2" />
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Add Part" textAlignment="CENTER">
                      <font>
                         <Font size="20.0" />
@@ -120,14 +124,14 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="7" onAction="#saveButtAction"/>
+                  <Button mnemonicParsing="false" onAction="#saveButtAction" prefHeight="25.0" prefWidth="96.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="7" />
                   <TextField prefWidth="149.0" promptText="Max" GridPane.columnIndex="4" GridPane.rowIndex="5" />
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="110.0" text="Min" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="5">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Cancel" GridPane.columnIndex="4" GridPane.rowIndex="7" onAction="#cancelPartButtAction"/>
+                  <Button mnemonicParsing="false" onAction="#cancelPartButtAction" prefHeight="25.0" prefWidth="96.0" text="Cancel" GridPane.columnIndex="4" GridPane.rowIndex="7" />
                </children>
             </GridPane>
       </children>

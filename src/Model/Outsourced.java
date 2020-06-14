@@ -1,4 +1,4 @@
-package sample;
+package Model;
 
 public class Outsourced extends Part{
     protected String companyName;

@@ -1,10 +1,16 @@
-package sample;
+package Model;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Inventory {
     private ObservableList<Part> allParts;
     private ObservableList<Product> allProducts;
+
+    public Inventory() {
+        this.allProducts = FXCollections.observableArrayList();
+        this.allParts = FXCollections.observableArrayList();
+    }
 
     public void addPart(Part newPart){
         allParts.add(newPart);
@@ -19,10 +25,22 @@ public class Inventory {
         return allProducts.get(productID);
     }
     public ObservableList<Part> lookupPart(String partName){
-        return null;
+        ObservableList<Part> matchingParts = null;
+        for(Part part : allParts){
+            if(part.getName().matches(partName)){
+                matchingParts.add(part);
+            }
+        }
+        return matchingParts;
     }
     public ObservableList<Product> lookupProduct(String productName){
-        return null;
+        ObservableList<Product> matchingProducts = null;
+        for(Product product : allProducts){
+            if (product.getName().matches(productName)){
+                matchingProducts.add(product);
+            }
+        }
+        return matchingProducts;
     }
     public void updatePart(int index, Part selectedPart){
         allParts.add(index, selectedPart);

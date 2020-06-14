@@ -1,7 +1,7 @@
-package sample;
+package Model;
 
 public class InHouse extends Part {
-    protected int machineID;
+    private int machineID;
 
     public InHouse(int id, String name, double price, int stock, int min, int max, int machineID){
         super(id, name, price, stock, min, max);

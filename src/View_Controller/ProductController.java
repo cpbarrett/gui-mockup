@@ -1,4 +1,4 @@
-package sample;
+package View_Controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
