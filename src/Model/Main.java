@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     Stage window;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         window = primaryStage;
@@ -15,10 +16,7 @@ public class Main extends Application {
         window.setTitle("Main Screen");
         window.setScene(new Scene(root, 1280, 720));
         window.show();
-    }
 
-
-    public static void main(String[] args) {
-        launch(args);
     }
+    public static void main(String[] args) {launch(args);}
 }

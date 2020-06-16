@@ -12,9 +12,7 @@ public class Inventory {
         this.allParts = FXCollections.observableArrayList();
     }
 
-    public void addPart(Part newPart){
-        allParts.add(newPart);
-    }
+    public void addPart(Part newPart){allParts.add(newPart);}
     public void addProduct(Product newProduct){
         allProducts.add(newProduct);
     }
@@ -25,7 +23,7 @@ public class Inventory {
         return allProducts.get(productID);
     }
     public ObservableList<Part> lookupPart(String partName){
-        ObservableList<Part> matchingParts = null;
+        ObservableList<Part> matchingParts = FXCollections.observableArrayList();
         for(Part part : allParts){
             if(part.getName().matches(partName)){
                 matchingParts.add(part);
@@ -34,7 +32,7 @@ public class Inventory {
         return matchingParts;
     }
     public ObservableList<Product> lookupProduct(String productName){
-        ObservableList<Product> matchingProducts = null;
+        ObservableList<Product> matchingProducts = FXCollections.observableArrayList();
         for(Product product : allProducts){
             if (product.getName().matches(productName)){
                 matchingProducts.add(product);
