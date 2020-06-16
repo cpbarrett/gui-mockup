@@ -131,7 +131,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#cancelModPartButtAction" prefHeight="25.0" prefWidth="96.0" text="Cancel" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                  <Button mnemonicParsing="false" onAction="#exitWindow" prefHeight="25.0" prefWidth="96.0" text="Cancel" GridPane.columnIndex="4" GridPane.rowIndex="7" />
                </children>
             </GridPane>
       </children>

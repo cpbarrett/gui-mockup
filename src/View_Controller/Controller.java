@@ -4,27 +4,31 @@ import Model.InHouse;
 import Model.Inventory;
 import Model.Part;
 import Model.Product;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     Inventory sampleInventory;
-    @FXML VBox mainScreen;
-    @FXML VBox addPartScreen;
-    @FXML VBox modPartScreen;
+    private final String mainScreen = "MainScreen.fxml";
+    private final String addPartScreen = "AddPart.fxml";
+    private final String modPartScreen = "ModPart.fxml";
+    private final String addProductScreen = "AddProduct.fxml";
+    private final String modProductScreen = "ModProduct.fxml";
+
     @FXML private TableView<Part> partsTable;
     @FXML private TableView<Product> productsTable;
     @FXML private TableColumn<Part, Integer> tablePartID;
@@ -35,15 +39,16 @@ public class Controller implements Initializable {
     @FXML private TableColumn<Product, String> tableProductsName;
     @FXML private TableColumn<Product, Integer> tableProductsInv;
     @FXML private TableColumn<Product, Double> tableProductsPrice;
+    @FXML TextField addPartName;
+    @FXML TextField addPartPrice;
+    @FXML TextField addPartInv;
+    @FXML TextField addPartMin;
+    @FXML TextField addPartMax;
+    @FXML TextField addPartMachID;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         createInventory();
-
-        System.out.println("Part Count" + sampleInventory.getAllParts().size());
-        System.out.println("Prod Count:" + sampleInventory.getAllProducts().size());
-        System.out.println(productsTable.getItems().isEmpty());
-        System.out.println(partsTable.getItems().isEmpty());
     }
 
     private void createInventory() {
@@ -64,30 +69,44 @@ public class Controller implements Initializable {
         tableProductsInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
         tableProductsPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
-
-    public void exitButtAction(){
-        Stage window = (Stage) mainScreen.getScene().getWindow();
+    public void exitButtAction(ActionEvent event){
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
         window.close();
         System.exit(0);
     }
-    public void addPartButtAction() throws IOException{
-        Stage window = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/View_Controller/AddPart.fxml"));
-        window.setTitle("Add New Part");
-        window.setScene(new Scene(root, 640, 480));
-        window.show();
+    public void addPartButtAction(ActionEvent actionEvent) throws IOException{
+        openNewWindow(actionEvent, addPartScreen);
     }
-    public void modPartButtAction() throws IOException {
-
+    public void modPartButtAction(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(modPartScreen));
+        Parent productUI = loader.load();
+        PartController partController = loader.getController();
+        partController.loadPart(partsTable.getSelectionModel().getSelectedItem());
+        openNewWindow(actionEvent, modPartScreen);
     }
     public void delPartButtAction() throws IOException {
+        sampleInventory.deletePart(partsTable.getSelectionModel().getSelectedItem());
     }
-    public void addProductButtAction() throws IOException {
-
+    public void addProductButtAction(ActionEvent actionEvent) throws IOException {
+        openNewWindow(actionEvent, addProductScreen);
     }
-    public void modProductButtAction() throws IOException {
-
+    public void modProductButtAction(ActionEvent actionEvent) throws IOException {
+        openNewWindow(actionEvent, modProductScreen);
     }
     public void delProductButtAction() throws IOException {
+        sampleInventory.deleteProduct(productsTable.getSelectionModel().getSelectedItem());
+    }
+    private void openNewWindow(ActionEvent event, String screen) throws IOException {
+        Parent productUI = FXMLLoader.load(getClass().getResource(screen));
+        Scene scene = new Scene(productUI);
+
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
+    private void exitWindow(VBox screen){
+        Stage window = (Stage) screen.getScene().getWindow();
+        window.close();
     }
 }

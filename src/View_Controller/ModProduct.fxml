@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="modProductScreen" fx:controller="View_Controller.ProductController" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="modProductScreen" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.ProductController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -101,7 +101,7 @@
                   <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="175.0" text="Search" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                   <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="175.0" text="Delete" GridPane.columnIndex="7" GridPane.rowIndex="11" />
                   <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="175.0" text="Save" GridPane.columnIndex="6" GridPane.rowIndex="12" />
-                  <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="175.0" text="Cancel" GridPane.columnIndex="7" GridPane.rowIndex="12" onAction="#cancelModProductButtAction"/>
+                  <Button mnemonicParsing="false" onAction="#exitWindow" prefHeight="36.0" prefWidth="175.0" text="Cancel" GridPane.columnIndex="7" GridPane.rowIndex="12" />
                   <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="175.0" text="Add" GridPane.columnIndex="7" GridPane.rowIndex="6" />
                   <TextField GridPane.columnIndex="6" GridPane.rowIndex="1" />
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="177.0" text="ID" GridPane.rowIndex="3" />

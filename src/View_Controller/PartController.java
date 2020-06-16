@@ -1,48 +1,69 @@
 package View_Controller;
 
 import Model.InHouse;
+import Model.Part;
+import View_Controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PartController extends Controller implements Initializable {
-    @FXML TextField addPartName;
-    @FXML TextField addPartPrice;
-    @FXML TextField addPartInv;
-    @FXML TextField addPartMin;
-    @FXML TextField addPartMax;
-    @FXML TextField addPartMachID;
+public class PartController implements Initializable {
+    @FXML private TextField partId;
+    @FXML private TextField partName;
+    @FXML private TextField partPrice;
+    @FXML private TextField partInv;
+    @FXML private TextField partMin;
+    @FXML private TextField partMax;
+    @FXML private TextField partMachID;
+    private Parent mainUI;
+    private Controller mainController;
 
-    public void initialize(URL location, ResourceBundle resources){
-
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("MainScreen.fxml"));
+        try {
+            mainUI = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mainController = loader.getController();
     }
-
-    public void cancelPartButtAction(ActionEvent actionEvent){
-        exitWindow(addPartScreen);
+    public void loadPart(Part modPart) {
+        partId.setText(modPart.getId() + "");
+        partName.setText(modPart.getName());
+        partPrice.setText(modPart.getPrice() + "");
+        partInv.setText(modPart.getStock() + "");
+        partMax.setText(modPart.getMax() + "");
+        partMin.setText(modPart.getMin() + "");
+        partMachID.setText(null);
     }
-    public void cancelModPartButtAction(ActionEvent actionEvent){
-        exitWindow(modPartScreen);
+    public void saveButtAction(ActionEvent actionEvent) throws IOException {
+        mainController.sampleInventory.addPart(new InHouse(
+                mainController.sampleInventory.getAllParts().size(),
+                partName.getText(),
+                Double.parseDouble(partPrice.getText()),
+                Integer.parseInt(partInv.getText()),
+                Integer.parseInt(partMin.getText()),
+                Integer.parseInt(partMax.getText()),
+                Integer.parseInt(partMachID.getText())
+        ));
+        exitWindow(actionEvent);
     }
-    public void saveButtAction(ActionEvent actionEvent) {
-        System.out.println(addPartName.getText());
-        System.out.println(sampleInventory.lookupProduct(0).getName());
-//        sampleInventory.addPart(new InHouse(sampleInventory.getAllParts().size(),
-//                addPartName.getText(),
-//                Double.parseDouble(addPartPrice.toString()),
-//                Integer.parseInt(addPartInv.getText()),
-//                Integer.parseInt(addPartMin.getText()),
-//                Integer.parseInt(addPartMax.getText()),
-//                Integer.parseInt(addPartMachID.getText())));
-//        exitWindow(addPartScreen);
-    }
-    private void exitWindow(VBox screen){
-        Stage window = (Stage) screen.getScene().getWindow();
-        window.close();
+    public void exitWindow(ActionEvent actionEvent) throws IOException {
+        Scene scene = new Scene(mainUI);
+        Stage window = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
     }
 }
