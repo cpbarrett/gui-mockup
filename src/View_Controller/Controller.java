@@ -101,6 +101,13 @@ public class Controller implements Initializable {
     }
     public void modProductButtAction(ActionEvent actionEvent) throws IOException {
         openNewWindow(actionEvent, modProductScreen);
+        if(!productsTable.getSelectionModel().isEmpty()){
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(modProductScreen));
+            ProductController productController = loader.getController();
+            productController.setAssociatedParts(productsTable.getSelectionModel().getSelectedItem().getId());
+            openNewWindow(actionEvent, modProductScreen);
+        }
     }
     public void delProductButtAction() throws IOException {
         sampleInventory.deleteProduct(productsTable.getSelectionModel().getSelectedItem());
