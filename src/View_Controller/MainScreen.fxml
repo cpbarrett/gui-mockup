@@ -65,7 +65,7 @@
         </Label>
             <Pane layoutX="676.0" layoutY="140.0" prefHeight="358.0" prefWidth="547.0" style="-fx-border-color: black;">
                <children>
-                  <TextField layoutX="292.0" layoutY="46.0" />
+                  <TextField fx:id="searchProducts" layoutX="292.0" layoutY="46.0" />
                   <Label alignment="CENTER" layoutX="60.0" layoutY="45.0" style="&#10;" text="Products" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
                      <font>
                         <Font name="System Bold" size="18.0" />
@@ -78,7 +78,7 @@
                         <Button layoutX="50.0" layoutY="18.0" mnemonicParsing="false" onAction="#delProductButtAction" text="Delete" />
                     </buttons>
                   </ButtonBar>
-                  <Button layoutX="241.0" layoutY="46.0" mnemonicParsing="false" text="Search" />
+                  <Button layoutX="241.0" layoutY="46.0" mnemonicParsing="false" onAction="#searchProductsButton" text="Search" />
                   <TableView fx:id="productsTable" layoutX="60.0" layoutY="79.0" prefHeight="200.0" prefWidth="381.0">
                      <columns>
                         <TableColumn fx:id="tableProductsID" prefWidth="75.0" text="Product ID" />
@@ -97,7 +97,7 @@
             </Pane>
             <Pane layoutX="62.0" layoutY="140.0" prefHeight="358.0" prefWidth="547.0" style="-fx-border-color: black;">
                <children>
-                  <TextField layoutX="292.0" layoutY="46.0" />
+                  <TextField fx:id="searchParts" layoutX="292.0" layoutY="46.0" />
                   <Label alignment="CENTER" layoutX="60.0" layoutY="45.0" style="&#10;" text="Parts" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
                      <font>
                         <Font name="System Bold" size="18.0" />
@@ -110,7 +110,7 @@
                         <Button layoutX="50.0" layoutY="18.0" mnemonicParsing="false" onAction="#delPartButtAction" text="Delete" />
                      </buttons>
                   </ButtonBar>
-                  <Button layoutX="241.0" layoutY="46.0" mnemonicParsing="false" text="Search" />
+                  <Button layoutX="241.0" layoutY="46.0" mnemonicParsing="false" onAction="#searchPartsButton" text="Search" />
                   <TableView fx:id="partsTable" layoutX="60.0" layoutY="75.0" prefHeight="200.0" prefWidth="381.0">
                     <columns>
                       <TableColumn fx:id="tablePartID" prefWidth="75.0" text="Part ID" />

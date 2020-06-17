@@ -7,6 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -15,6 +17,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ProductController implements Initializable {
+    public TableView asociatedPartsTable;
+    public TableColumn asociatedPartID;
     private Parent mainUI;
     private Controller mainController;
 
@@ -34,5 +38,17 @@ public class ProductController implements Initializable {
         Stage window = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
+    }
+
+    public void searchPartsButton(ActionEvent actionEvent) {
+    }
+
+    public void delPartButtAction(ActionEvent actionEvent) {
+    }
+
+    public void modPartButtAction(ActionEvent actionEvent) {
+    }
+
+    public void addPartButtAction(ActionEvent actionEvent) {
     }
 }

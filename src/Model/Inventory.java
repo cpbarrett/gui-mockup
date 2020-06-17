@@ -25,7 +25,7 @@ public class Inventory {
     public ObservableList<Part> lookupPart(String partName){
         ObservableList<Part> matchingParts = FXCollections.observableArrayList();
         for(Part part : allParts){
-            if(part.getName().matches(partName)){
+            if(part.getName().contains(partName)){
                 matchingParts.add(part);
             }
         }
@@ -34,7 +34,7 @@ public class Inventory {
     public ObservableList<Product> lookupProduct(String productName){
         ObservableList<Product> matchingProducts = FXCollections.observableArrayList();
         for(Product product : allProducts){
-            if (product.getName().matches(productName)){
+            if (product.getName().contains(productName)){
                 matchingProducts.add(product);
             }
         }

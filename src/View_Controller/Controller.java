@@ -4,6 +4,7 @@ import Model.InHouse;
 import Model.Inventory;
 import Model.Part;
 import Model.Product;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,11 +24,12 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     Inventory sampleInventory;
-    private final String mainScreen = "MainScreen.fxml";
-    private final String addPartScreen = "AddPart.fxml";
-    private final String modPartScreen = "ModPart.fxml";
-    private final String addProductScreen = "AddProduct.fxml";
-    private final String modProductScreen = "ModProduct.fxml";
+    public Part modPart;
+    private static final String mainScreen = "MainScreen.fxml";
+    private static final String addPartScreen = "AddPart.fxml";
+    private static final String modPartScreen = "ModPart.fxml";
+    private static final String addProductScreen = "AddProduct.fxml";
+    private static final String modProductScreen = "ModProduct.fxml";
 
     @FXML private TableView<Part> partsTable;
     @FXML private TableView<Product> productsTable;
@@ -39,12 +41,9 @@ public class Controller implements Initializable {
     @FXML private TableColumn<Product, String> tableProductsName;
     @FXML private TableColumn<Product, Integer> tableProductsInv;
     @FXML private TableColumn<Product, Double> tableProductsPrice;
-    @FXML TextField addPartName;
-    @FXML TextField addPartPrice;
-    @FXML TextField addPartInv;
-    @FXML TextField addPartMin;
-    @FXML TextField addPartMax;
-    @FXML TextField addPartMachID;
+
+    @FXML private TextField searchParts;
+    @FXML private TextField searchProducts;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -74,19 +73,28 @@ public class Controller implements Initializable {
         window.close();
         System.exit(0);
     }
+    public void searchPartsButton(ActionEvent actionEvent) {
+        partsTable.setItems(sampleInventory.lookupPart(searchParts.getText()));
+    }
     public void addPartButtAction(ActionEvent actionEvent) throws IOException{
         openNewWindow(actionEvent, addPartScreen);
     }
     public void modPartButtAction(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(modPartScreen));
-        Parent productUI = loader.load();
-        PartController partController = loader.getController();
-        partController.loadPart(partsTable.getSelectionModel().getSelectedItem());
-        openNewWindow(actionEvent, modPartScreen);
+        if (!partsTable.getSelectionModel().isEmpty()){
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(modPartScreen));
+            PartController partController = loader.getController();
+//            System.out.println(partsTable.getSelectionModel().getSelectedItem().getClass().toString());
+            modPart = partsTable.getSelectionModel().getSelectedItem();
+            partController.loadPart(modPart);
+            openNewWindow(actionEvent, modPartScreen);
+        }
     }
     public void delPartButtAction() throws IOException {
         sampleInventory.deletePart(partsTable.getSelectionModel().getSelectedItem());
+    }
+    public void searchProductsButton(ActionEvent actionEvent) {
+        productsTable.setItems(sampleInventory.lookupProduct(searchProducts.getText()));
     }
     public void addProductButtAction(ActionEvent actionEvent) throws IOException {
         openNewWindow(actionEvent, addProductScreen);

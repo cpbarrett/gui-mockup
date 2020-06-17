@@ -2,7 +2,6 @@ package View_Controller;
 
 import Model.InHouse;
 import Model.Part;
-import View_Controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,13 +39,14 @@ public class PartController implements Initializable {
         mainController = loader.getController();
     }
     public void loadPart(Part modPart) {
-        partId.setText(modPart.getId() + "");
-        partName.setText(modPart.getName());
-        partPrice.setText(modPart.getPrice() + "");
-        partInv.setText(modPart.getStock() + "");
-        partMax.setText(modPart.getMax() + "");
-        partMin.setText(modPart.getMin() + "");
-        partMachID.setText(null);
+        System.out.println(modPart.getClass().toString());
+//        partId.setText(modPart.getId() + "");
+//        partName.setText(modPart.getName());
+//        partPrice.setText(modPart.getPrice() + "");
+//        partInv.setText(modPart.getStock() + "");
+//        partMax.setText(modPart.getMax() + "");
+//        partMin.setText(modPart.getMin() + "");
+//        partMachID.setText(modPart.getMachineId());
     }
     public void saveButtAction(ActionEvent actionEvent) throws IOException {
         mainController.sampleInventory.addPart(new InHouse(
