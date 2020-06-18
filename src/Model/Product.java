@@ -1,12 +1,13 @@
 package Model;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Product {
     private ObservableList<Part> associatedParts;
     private int id;
-    private String name;
+    private SimpleStringProperty name;
     private double price;
     private int stock;
     private int min;
@@ -14,7 +15,7 @@ public class Product {
 
     public Product(int id, String name, double price, int stock, int min, int max){
         this.id = id;
-        this.name = name;
+        this.name = new SimpleStringProperty(name);
         this.price = price;
         this.stock = stock;
         this.min = min;
@@ -27,7 +28,7 @@ public class Product {
     }
 
     public String getName() {
-        return name;
+        return name.get();
     }
 
     public double getPrice() {
@@ -51,7 +52,7 @@ public class Product {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name.set(name);
     }
 
     public void setPrice(double price) {

@@ -78,11 +78,11 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <RadioButton contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="111.0" text="Outsourced" GridPane.columnIndex="3">
+                  <RadioButton fx:id="outSourcedType" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="110.0" text="Outsourced" GridPane.columnIndex="3" toggleGroup="$type">
                      <toggleGroup>
-                        <ToggleGroup fx:id="group" />
+                        <ToggleGroup fx:id="type"/>
                      </toggleGroup></RadioButton>
-                  <RadioButton contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="110.0" selected="true" text="In-House" toggleGroup="$group" GridPane.columnIndex="2" />
+                  <RadioButton fx:id="inHouseType" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="110.0" selected="true" text="In-House" toggleGroup="$type" GridPane.columnIndex="2" />
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Add Part" textAlignment="CENTER">
                      <font>
                         <Font size="20.0" />
@@ -113,13 +113,13 @@
                   <TextField fx:id="partInv" promptText="Inv" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                   <TextField fx:id="partId" disable="true" promptText="Auto-Gen Disabled" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                   <TextField fx:id="partMax" promptText="Max" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                  <TextField fx:id="partMachID" promptText="Mach ID" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                  <TextField fx:id="partLastField" promptText="Mach ID" GridPane.columnIndex="2" GridPane.rowIndex="6" />
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="107.0" text="Max" textAlignment="CENTER" GridPane.rowIndex="5">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="108.0" text="Machine ID" textAlignment="CENTER" GridPane.rowIndex="6">
+                  <Label fx:id="partLastLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="108.0" text="Machine ID" textAlignment="CENTER" GridPane.rowIndex="6">
                      <font>
                         <Font size="14.0" />
                      </font>

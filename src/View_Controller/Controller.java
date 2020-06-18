@@ -1,10 +1,6 @@
 package View_Controller;
 
-import Model.InHouse;
-import Model.Inventory;
-import Model.Part;
-import Model.Product;
-import javafx.collections.transformation.FilteredList;
+import Model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +12,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
@@ -24,14 +19,12 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     Inventory sampleInventory;
-    public Part modPart;
     private static final String mainScreen = "MainScreen.fxml";
     private static final String addPartScreen = "AddPart.fxml";
     private static final String modPartScreen = "ModPart.fxml";
     private static final String addProductScreen = "AddProduct.fxml";
     private static final String modProductScreen = "ModProduct.fxml";
-
-    @FXML private TableView<Part> partsTable;
+    @FXML public TableView<Part> partsTable;
     @FXML private TableView<Product> productsTable;
     @FXML private TableColumn<Part, Integer> tablePartID;
     @FXML private TableColumn<Part, String> tablePartName;
@@ -41,7 +34,6 @@ public class Controller implements Initializable {
     @FXML private TableColumn<Product, String> tableProductsName;
     @FXML private TableColumn<Product, Integer> tableProductsInv;
     @FXML private TableColumn<Product, Double> tableProductsPrice;
-
     @FXML private TextField searchParts;
     @FXML private TextField searchProducts;
 
@@ -53,7 +45,9 @@ public class Controller implements Initializable {
     private void createInventory() {
         sampleInventory = new Inventory();
         sampleInventory.addProduct(new Product(0, "sample", 1.00,1,1,1));
-        sampleInventory.addPart(new InHouse(0, "sample", 1.00, 1, 1, 1, 1));
+        sampleInventory.addPart(new InHouse(0, "inHouseSample", 1.00, 1, 1, 1, 1));
+        sampleInventory.addPart(new Outsourced(1, "OutsourcedSample", 1.00, 1,1,1, "comp"));
+        sampleInventory.lookupProduct(0).addAssociatedPart(sampleInventory.lookupPart(0));
 
         partsTable.setItems(sampleInventory.getAllParts());
         productsTable.setItems(sampleInventory.getAllProducts());
@@ -68,7 +62,8 @@ public class Controller implements Initializable {
         tableProductsInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
         tableProductsPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
-    public void exitButtAction(ActionEvent event){
+    @FXML
+    private void exitButtAction(ActionEvent event){
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
         window.close();
         System.exit(0);
@@ -77,17 +72,18 @@ public class Controller implements Initializable {
         partsTable.setItems(sampleInventory.lookupPart(searchParts.getText()));
     }
     public void addPartButtAction(ActionEvent actionEvent) throws IOException{
-        openNewWindow(actionEvent, addPartScreen);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(addPartScreen));
+        Parent partUI = loader.load();
+        openNewWindow(actionEvent, partUI);
     }
     public void modPartButtAction(ActionEvent actionEvent) throws IOException {
         if (!partsTable.getSelectionModel().isEmpty()){
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(modPartScreen));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(modPartScreen));
+            int id = partsTable.getSelectionModel().getSelectedItem().getId();
+            Parent partUI = loader.load();
             PartController partController = loader.getController();
-//            System.out.println(partsTable.getSelectionModel().getSelectedItem().getClass().toString());
-            modPart = partsTable.getSelectionModel().getSelectedItem();
-            partController.loadPart(modPart);
-            openNewWindow(actionEvent, modPartScreen);
+            partController.loadPartID(id);
+            openNewWindow(actionEvent, partUI);
         }
     }
     public void delPartButtAction() throws IOException {
@@ -97,31 +93,29 @@ public class Controller implements Initializable {
         productsTable.setItems(sampleInventory.lookupProduct(searchProducts.getText()));
     }
     public void addProductButtAction(ActionEvent actionEvent) throws IOException {
-        openNewWindow(actionEvent, addProductScreen);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(addProductScreen));
+        Parent productUI = loader.load();
+        ProductController productController = loader.getController();
+        //productController.loadPartsList(sampleInventory.getAllParts());
+        openNewWindow(actionEvent, productUI);
     }
     public void modProductButtAction(ActionEvent actionEvent) throws IOException {
-        openNewWindow(actionEvent, modProductScreen);
         if(!productsTable.getSelectionModel().isEmpty()){
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(modProductScreen));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(modProductScreen));
+            int id = productsTable.getSelectionModel().getSelectedItem().getId();
+            Parent productUI = loader.load();
             ProductController productController = loader.getController();
-            productController.setAssociatedParts(productsTable.getSelectionModel().getSelectedItem().getId());
-            openNewWindow(actionEvent, modProductScreen);
+            productController.loadProductID(id);
+            openNewWindow(actionEvent, productUI);
         }
     }
     public void delProductButtAction() throws IOException {
         sampleInventory.deleteProduct(productsTable.getSelectionModel().getSelectedItem());
     }
-    private void openNewWindow(ActionEvent event, String screen) throws IOException {
-        Parent productUI = FXMLLoader.load(getClass().getResource(screen));
-        Scene scene = new Scene(productUI);
-
+    private void openNewWindow(ActionEvent event, Parent newUI) throws IOException {
+        Scene scene = new Scene(newUI);
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
-    }
-    private void exitWindow(VBox screen){
-        Stage window = (Stage) screen.getScene().getWindow();
-        window.close();
     }
 }

@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="modProductScreen" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.ProductController">
+<VBox fx:id="addProductScreen" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.ProductController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
@@ -61,17 +61,14 @@
             <children>
                 <TableView fx:id="partsTable" layoutX="780.0" layoutY="120.0" prefHeight="200.0" prefWidth="381.0">
                     <columns>
-                        <TableColumn fx:id="tablePartID" prefWidth="75.0" text="Part ID" />
-                        <TableColumn fx:id="tablePartName" prefWidth="75.0" text="Part Name" />
-                        <TableColumn fx:id="tablePartInv" prefWidth="75.0" text="Inventory Level" />
-                        <TableColumn fx:id="tablePartPrice" prefWidth="75.0" text="Price per Unit" />
+                        <TableColumn fx:id="availablePartsID" prefWidth="75.0" text="Part ID" />
+                        <TableColumn fx:id="availablePartsName" prefWidth="75.0" text="Part Name" />
+                        <TableColumn fx:id="availablePartsInv" prefWidth="75.0" text="Inventory Level" />
+                        <TableColumn fx:id="availablePartsPrice" prefWidth="75.0" text="Price per Unit" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                     </columnResizePolicy>
-                    <sortOrder>
-                        <fx:reference source="tablePartID" />
-                    </sortOrder>
                 </TableView>
                 <TableView fx:id="associatedPartsTable" layoutX="780.0" layoutY="360.0" prefHeight="200.0" prefWidth="381.0">
                     <columns>
@@ -83,9 +80,6 @@
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                     </columnResizePolicy>
-                    <sortOrder>
-                        <fx:reference source="tablePartID" />
-                    </sortOrder>
                 </TableView>
                 <GridPane layoutX="27.0" layoutY="25.0" prefHeight="630.0" prefWidth="1222.0" style="-fx-border-color: black;">
                     <columnConstraints>
@@ -125,23 +119,23 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="175.0" text="Search" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-                        <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="175.0" text="Delete" GridPane.columnIndex="7" GridPane.rowIndex="11" />
-                        <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="175.0" text="Save" GridPane.columnIndex="6" GridPane.rowIndex="12" />
+                        <Button mnemonicParsing="false" onAction="#searchAvailablePartsButton" prefHeight="36.0" prefWidth="175.0" text="Search" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                        <Button mnemonicParsing="false" onAction="#delAssociatedPart" prefHeight="36.0" prefWidth="175.0" text="Delete" GridPane.columnIndex="7" GridPane.rowIndex="11" />
+                        <Button mnemonicParsing="false" onAction="#addProductButtAction" prefHeight="36.0" prefWidth="175.0" text="Save" GridPane.columnIndex="6" GridPane.rowIndex="12" />
                         <Button mnemonicParsing="false" onAction="#exitWindow" prefHeight="36.0" prefWidth="175.0" text="Cancel" GridPane.columnIndex="7" GridPane.rowIndex="12" />
-                        <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="175.0" text="Add" GridPane.columnIndex="7" GridPane.rowIndex="6" />
-                        <TextField GridPane.columnIndex="7" GridPane.rowIndex="1" />
+                        <Button mnemonicParsing="false" onAction="#newAssociatedPart" prefHeight="36.0" prefWidth="175.0" text="Add" GridPane.columnIndex="7" GridPane.rowIndex="6" />
+                        <TextField fx:id="searchAvailableParts" GridPane.columnIndex="7" GridPane.rowIndex="1" />
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="177.0" text="ID" GridPane.rowIndex="3" />
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="177.0" text="Name" GridPane.rowIndex="4" />
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="177.0" text="Inv" GridPane.rowIndex="5" />
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="177.0" text="Price" GridPane.rowIndex="6" />
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="177.0" text="Max" GridPane.rowIndex="7" />
-                        <TextField disable="true" prefHeight="45.0" prefWidth="154.0" promptText="Auto Gen-Disabled" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField prefHeight="45.0" prefWidth="154.0" promptText="Product Name" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField prefHeight="25.0" prefWidth="50.0" promptText="Inv" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField promptText="Price" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField promptText="Max" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <TextField promptText="Min" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                        <TextField fx:id="productId" disable="true" prefHeight="45.0" prefWidth="154.0" promptText="Auto Gen-Disabled" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="productName" prefHeight="45.0" prefWidth="154.0" promptText="Product Name" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="productInv" prefHeight="25.0" prefWidth="50.0" promptText="Inv" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="productPrice" promptText="Price" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="productMax" promptText="Max" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextField fx:id="productMin" promptText="Min" GridPane.columnIndex="3" GridPane.rowIndex="7" />
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="177.0" text="Min" GridPane.columnIndex="2" GridPane.rowIndex="7" />
                     </children>
                 </GridPane>
