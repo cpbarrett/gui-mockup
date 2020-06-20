@@ -143,7 +143,6 @@ public class ProductController implements Initializable {
     }
     private boolean validateProduct(){
         try {
-            int id = Integer.parseInt(productId.getText());
             int stock = Integer.parseInt(productInv.getText());
             int max = Integer.parseInt(productMax.getText());
             int min = Integer.parseInt(productMin.getText());
@@ -165,7 +164,7 @@ public class ProductController implements Initializable {
                 AlertBox.display("Error", "Stock and Min must not be less than 0. Max must be at least 1.");
                 return false;
             }
-            if (price < InventoryManager.sumOfParts(id)){
+            if (price < InventoryManager.sumOfParts(product)){
                 AlertBox.display("Error", "A product cannot cost less than the sum of it's parts.");
                 return false;
             }

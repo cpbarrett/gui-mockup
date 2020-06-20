@@ -20,9 +20,9 @@ public class InventoryManager {
     public static int generateProductId(){
         return productsId++;
     }
-    public static double sumOfParts(int id){
+    public static double sumOfParts(Product product){
         Double sum = 0.00;
-        for (Part part : inventory.lookupProduct(id).getAllAssociatedParts()){
+        for (Part part : inventory.lookupProduct(product.getId()).getAllAssociatedParts()){
             sum += part.getPrice();
         }
         return sum;
