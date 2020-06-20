@@ -82,7 +82,7 @@ public class ProductController implements Initializable {
 
     public void searchAvailablePartsButton(ActionEvent actionEvent) {
         try {
-            ObservableList<Part> matchingParts = FXCollections.observableArrayList(InventoryManager.getInventory().lookupPart(new Integer(searchAvailableParts.getText())));
+            ObservableList<Part> matchingParts = FXCollections.observableArrayList(InventoryManager.getInventory().lookupPart(Integer.parseInt(searchAvailableParts.getText())));
             availablePartsTable.setItems(matchingParts);
         } catch (NumberFormatException e){
             availablePartsTable.setItems(InventoryManager.getInventory().lookupPart(searchAvailableParts.getText()));
@@ -127,7 +127,7 @@ public class ProductController implements Initializable {
         product.setMin(Integer.parseInt(productMin.getText()));
         product.setMax(Integer.parseInt(productMax.getText()));
 
-        InventoryManager.getInventory().updateProduct(new Integer(productId.getText()),product);
+        InventoryManager.getInventory().updateProduct(Integer.parseInt(productId.getText()),product);
         exitWindow(actionEvent);
     }
     public void cancelProduct(ActionEvent actionEvent) throws IOException {
@@ -143,10 +143,10 @@ public class ProductController implements Initializable {
     }
     private boolean validateProduct(){
         try {
-            Integer id = new Integer(productId.getText());
-            Integer stock = new Integer(productInv.getText());
-            Integer max = new Integer(productMax.getText());
-            Integer min = new Integer(productMin.getText());
+            int id = Integer.parseInt(productId.getText());
+            int stock = Integer.parseInt(productInv.getText());
+            int max = Integer.parseInt(productMax.getText());
+            int min = Integer.parseInt(productMin.getText());
             Double price = Double.parseDouble(productPrice.getText());
 
             if (min >= max){

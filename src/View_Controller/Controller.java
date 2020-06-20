@@ -65,7 +65,7 @@ public class Controller implements Initializable {
     }
     public void searchPartsButton(ActionEvent actionEvent) {
         try {
-            ObservableList<Part> matchingParts = FXCollections.observableArrayList(InventoryManager.getInventory().lookupPart(new Integer(searchParts.getText())));
+            ObservableList<Part> matchingParts = FXCollections.observableArrayList(InventoryManager.getInventory().lookupPart(Integer.parseInt((searchParts.getText()))));
             partsTable.setItems(matchingParts);
         } catch (NumberFormatException e) {
             partsTable.setItems(InventoryManager.getInventory().lookupPart(searchParts.getText()));
@@ -93,7 +93,7 @@ public class Controller implements Initializable {
     }
     public void searchProductsButton(ActionEvent actionEvent) {
         try {
-            ObservableList<Product> matchingProducts = FXCollections.observableArrayList(InventoryManager.getInventory().lookupProduct(new Integer(searchProducts.getText())));
+            ObservableList<Product> matchingProducts = FXCollections.observableArrayList(InventoryManager.getInventory().lookupProduct(Integer.parseInt(searchProducts.getText())));
             productsTable.setItems(matchingProducts);
         } catch (NumberFormatException e) {
             productsTable.setItems(InventoryManager.getInventory().lookupProduct(searchProducts.getText()));

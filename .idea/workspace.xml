@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Mod Part Working">
-      <change afterPath="$PROJECT_DIR$/src/Model/AlertBox.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Model/InventoryManager.java" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Exception Handling added per instructions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Inventory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Part.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Part.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tests/InventoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tests/InventoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View_Controller/AddPart.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/AddPart.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View_Controller/AddProduct.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/AddProduct.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/View_Controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View_Controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View_Controller/MainScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/MainScreen.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View_Controller/ModPart.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/ModPart.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View_Controller/ModProduct.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/ModProduct.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/View_Controller/PartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View_Controller/PartController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/View_Controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View_Controller/ProductController.java" afterDir="false" />
     </list>
@@ -374,7 +362,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592453502823</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Exception Handling added per instructions">
+      <created>1592633336799</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1592633336799</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -392,7 +387,8 @@
     <MESSAGE value="Fixed layout for Product Screens" />
     <MESSAGE value="Add new Product is working" />
     <MESSAGE value="Mod Part Working" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mod Part Working" />
+    <MESSAGE value="Exception Handling added per instructions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Exception Handling added per instructions" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#Intentions" timestamp="1592009343793">
@@ -438,41 +434,41 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="267" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1592515055820" />
-    <state x="624" y="114" key="CommitChangelistDialog2" timestamp="1592453502354">
+    <state x="624" y="114" key="CommitChangelistDialog2" timestamp="1592633336284">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="624" y="114" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1592370103302" />
-    <state x="624" y="114" key="CommitChangelistDialog2/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592453502354" />
+    <state x="624" y="114" key="CommitChangelistDialog2/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592633336284" />
     <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1592533982592">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1591847476777" />
     <state x="740" y="261" key="FileChooserDialogImpl/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592533982592" />
     <state x="2660" y="261" key="FileChooserDialogImpl/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1592251743651" />
-    <state width="1877" height="281" key="GridCell.Tab.0.bottom" timestamp="1592632875743">
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom" timestamp="1592633348404">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1592514706682" />
     <state width="1877" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1592509918734" />
-    <state width="1877" height="281" key="GridCell.Tab.0.bottom/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592632875743" />
-    <state width="1877" height="281" key="GridCell.Tab.0.center" timestamp="1592632875743">
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592633348404" />
+    <state width="1877" height="281" key="GridCell.Tab.0.center" timestamp="1592633348404">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="281" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1592514706682" />
     <state width="1877" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1592509918734" />
-    <state width="1877" height="281" key="GridCell.Tab.0.center/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592632875743" />
-    <state width="1877" height="281" key="GridCell.Tab.0.left" timestamp="1592632875743">
+    <state width="1877" height="281" key="GridCell.Tab.0.center/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592633348404" />
+    <state width="1877" height="281" key="GridCell.Tab.0.left" timestamp="1592633348404">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="281" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1592514706682" />
     <state width="1877" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1592509918734" />
-    <state width="1877" height="281" key="GridCell.Tab.0.left/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592632875743" />
-    <state width="1877" height="281" key="GridCell.Tab.0.right" timestamp="1592632875743">
+    <state width="1877" height="281" key="GridCell.Tab.0.left/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592633348404" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right" timestamp="1592633348404">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="281" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1592514706682" />
     <state width="1877" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1592509918734" />
-    <state width="1877" height="281" key="GridCell.Tab.0.right/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592632875743" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592633348404" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1592540111383">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

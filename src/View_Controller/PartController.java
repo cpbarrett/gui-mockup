@@ -67,9 +67,9 @@ public class PartController implements Initializable {
     }
     private boolean validatePart(){
         try {
-            Integer stock = new Integer(partInv.getText());
-            Integer max = new Integer(partMax.getText());
-            Integer min = new Integer(partMin.getText());
+            int stock = Integer.parseInt(partInv.getText());
+            int max = Integer.parseInt(partMax.getText());
+            int min = Integer.parseInt(partMin.getText());
             Double price = Double.parseDouble(partPrice.getText());
 
             if (min >= max){
@@ -136,11 +136,11 @@ public class PartController implements Initializable {
         }
         try {
             if (inHouseType.isSelected()) {
-                int id = new Integer(partId.getText());
+                int id = Integer.parseInt(partId.getText());
                 InventoryManager.getInventory().updatePart(id, createInHouse(id));
             }
             if (outSourcedType.isSelected()) {
-                int id = new Integer(partId.getText());
+                int id = Integer.parseInt(partId.getText());
                 InventoryManager.getInventory().updatePart(id, createOutsourced(id));
             }
         } catch (IndexOutOfBoundsException e){
