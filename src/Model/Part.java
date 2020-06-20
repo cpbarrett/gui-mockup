@@ -1,5 +1,9 @@
 package Model;
 
+import javafx.beans.property.SimpleIntegerProperty;
+
+import java.text.DecimalFormat;
+
 public abstract class Part {
     protected int id;
     protected String name;

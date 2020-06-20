@@ -84,7 +84,7 @@
                         <TableColumn fx:id="tableProductsID" prefWidth="75.0" text="Product ID" />
                         <TableColumn fx:id="tableProductsName" prefWidth="75.0" text="Product Name" />
                         <TableColumn fx:id="tableProductsInv" prefWidth="75.0" text="Inventory Level" />
-                        <TableColumn fx:id="tableProductsPrice" prefWidth="75.0" text="Price per Unit" />
+                        <TableColumn fx:id="tableProductsPrice" prefWidth="75.0" text="Price per Unit" style=""/>
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -1,6 +1,8 @@
 package View_Controller;
 
 import Model.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,14 +20,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
-    Inventory sampleInventory;
-    private static final String mainScreen = "MainScreen.fxml";
-    private static final String addPartScreen = "AddPart.fxml";
-    private static final String modPartScreen = "ModPart.fxml";
-    private static final String addProductScreen = "AddProduct.fxml";
-    private static final String modProductScreen = "ModProduct.fxml";
+    private static final String mainScreen = "../Views/MainScreen.fxml";
+    private static final String addPartScreen = "../Views/AddPart.fxml";
+    private static final String modPartScreen = "../Views/ModPart.fxml";
+    private static final String addProductScreen = "../Views/AddProduct.fxml";
+    private static final String modProductScreen = "../Views/ModProduct.fxml";
     @FXML public TableView<Part> partsTable;
-    @FXML private TableView<Product> productsTable;
+    @FXML public TableView<Product> productsTable;
     @FXML private TableColumn<Part, Integer> tablePartID;
     @FXML private TableColumn<Part, String> tablePartName;
     @FXML private TableColumn<Part, Integer> tablePartInv;
@@ -38,29 +39,23 @@ public class Controller implements Initializable {
     @FXML private TextField searchProducts;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        createInventory();
-    }
+    public void initialize(URL location, ResourceBundle resources) { createInventory(); }
 
     private void createInventory() {
-        sampleInventory = new Inventory();
-        sampleInventory.addProduct(new Product(0, "sample", 1.00,1,1,1));
-        sampleInventory.addPart(new InHouse(0, "inHouseSample", 1.00, 1, 1, 1, 1));
-        sampleInventory.addPart(new Outsourced(1, "OutsourcedSample", 1.00, 1,1,1, "comp"));
-        sampleInventory.lookupProduct(0).addAssociatedPart(sampleInventory.lookupPart(0));
-
-        partsTable.setItems(sampleInventory.getAllParts());
-        productsTable.setItems(sampleInventory.getAllProducts());
-
         tablePartID.setCellValueFactory(new PropertyValueFactory<>("id"));
         tablePartName.setCellValueFactory(new PropertyValueFactory<>("name"));
         tablePartInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
         tablePartPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        tablePartPrice.setStyle("-fx-list-style-type: decimal");
 
         tableProductsID.setCellValueFactory(new PropertyValueFactory<>("id"));
         tableProductsName.setCellValueFactory(new PropertyValueFactory<>("name"));
         tableProductsInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
         tableProductsPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+
+        partsTable.setItems(InventoryManager.getInventory().getAllParts());
+        productsTable.setItems(InventoryManager.getInventory().getAllProducts());
     }
     @FXML
     private void exitButtAction(ActionEvent event){
@@ -69,7 +64,12 @@ public class Controller implements Initializable {
         System.exit(0);
     }
     public void searchPartsButton(ActionEvent actionEvent) {
-        partsTable.setItems(sampleInventory.lookupPart(searchParts.getText()));
+        try {
+            ObservableList<Part> matchingParts = FXCollections.observableArrayList(InventoryManager.getInventory().lookupPart(new Integer(searchParts.getText())));
+            partsTable.setItems(matchingParts);
+        } catch (NumberFormatException e) {
+            partsTable.setItems(InventoryManager.getInventory().lookupPart(searchParts.getText()));
+        }
     }
     public void addPartButtAction(ActionEvent actionEvent) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource(addPartScreen));
@@ -79,38 +79,47 @@ public class Controller implements Initializable {
     public void modPartButtAction(ActionEvent actionEvent) throws IOException {
         if (!partsTable.getSelectionModel().isEmpty()){
             FXMLLoader loader = new FXMLLoader(getClass().getResource(modPartScreen));
-            int id = partsTable.getSelectionModel().getSelectedItem().getId();
+            Part part = partsTable.getSelectionModel().getSelectedItem();
             Parent partUI = loader.load();
             PartController partController = loader.getController();
-            partController.loadPartID(id);
+            partController.loadPart(part);
             openNewWindow(actionEvent, partUI);
         }
     }
     public void delPartButtAction() throws IOException {
-        sampleInventory.deletePart(partsTable.getSelectionModel().getSelectedItem());
+        if (AlertBox.confirm("Delete")) {
+            InventoryManager.getInventory().deletePart(partsTable.getSelectionModel().getSelectedItem());
+        }
     }
     public void searchProductsButton(ActionEvent actionEvent) {
-        productsTable.setItems(sampleInventory.lookupProduct(searchProducts.getText()));
+        try {
+            ObservableList<Product> matchingProducts = FXCollections.observableArrayList(InventoryManager.getInventory().lookupProduct(new Integer(searchProducts.getText())));
+            productsTable.setItems(matchingProducts);
+        } catch (NumberFormatException e) {
+            productsTable.setItems(InventoryManager.getInventory().lookupProduct(searchProducts.getText()));
+        }
     }
     public void addProductButtAction(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(addProductScreen));
         Parent productUI = loader.load();
         ProductController productController = loader.getController();
-        //productController.loadPartsList(sampleInventory.getAllParts());
+        productController.loadPartsList();
         openNewWindow(actionEvent, productUI);
     }
     public void modProductButtAction(ActionEvent actionEvent) throws IOException {
         if(!productsTable.getSelectionModel().isEmpty()){
             FXMLLoader loader = new FXMLLoader(getClass().getResource(modProductScreen));
-            int id = productsTable.getSelectionModel().getSelectedItem().getId();
+            Product product = productsTable.getSelectionModel().getSelectedItem();
             Parent productUI = loader.load();
             ProductController productController = loader.getController();
-            productController.loadProductID(id);
+            productController.loadProduct(product);
             openNewWindow(actionEvent, productUI);
         }
     }
     public void delProductButtAction() throws IOException {
-        sampleInventory.deleteProduct(productsTable.getSelectionModel().getSelectedItem());
+        if (AlertBox.confirm("Delete")) {
+            InventoryManager.getInventory().deleteProduct(productsTable.getSelectionModel().getSelectedItem());
+        }
     }
     private void openNewWindow(ActionEvent event, Parent newUI) throws IOException {
         Scene scene = new Scene(newUI);

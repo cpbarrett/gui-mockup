@@ -1,5 +1,6 @@
-package Model;
+package Main;
 
+import Model.InventoryManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,8 +12,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        InventoryManager.createInventory();
         window = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("../View_Controller/MainScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../Views/MainScreen.fxml"));
         window.setTitle("Main Screen");
         window.setScene(new Scene(root, 1280, 720));
         window.show();

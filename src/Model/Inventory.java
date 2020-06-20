@@ -12,9 +12,15 @@ public class Inventory {
         this.allParts = FXCollections.observableArrayList();
     }
 
-    public void addPart(Part newPart){allParts.add(newPart);}
+    public void addPart(Part newPart){
+        if (newPart != null){
+            this.allParts.add(newPart);
+        }
+    }
     public void addProduct(Product newProduct){
-        allProducts.add(newProduct);
+        if (newProduct != null){
+            this.allProducts.add(newProduct);
+        }
     }
     public Part lookupPart(int partID){
         return allParts.get(partID);
@@ -41,16 +47,34 @@ public class Inventory {
         return matchingProducts;
     }
     public void updatePart(int index, Part selectedPart){
-        allParts.add(index, selectedPart);
+        if (allParts.get(index) != null){
+            allParts.set(index, selectedPart);
+        } else {
+            allParts.add(index, selectedPart);
+        }
     }
     public void updateProduct(int index, Product selectedProduct){
-        allProducts.add(index, selectedProduct);
+        if (allProducts.contains(selectedProduct)){
+            allProducts.set(index,selectedProduct);
+        } else {
+            allProducts.add(index, selectedProduct);
+        }
     }
     public boolean deletePart(Part selectedPart){
-        return allParts.remove(selectedPart);
+        if(allParts.contains(selectedPart)){
+            allParts.remove(selectedPart.getId());
+            return true;
+        } else {
+            return false;
+        }
     }
     public boolean deleteProduct(Product selectedProduct){
-        return allProducts.remove(selectedProduct);
+        if (allProducts.contains(selectedProduct)){
+            allProducts.remove(selectedProduct.getId());
+            return true;
+        } else {
+            return false;
+        }
     }
     public ObservableList<Part> getAllParts() {
         return allParts;

@@ -1,7 +1,7 @@
 package View_Controller;
 
-import Model.Part;
-import Model.Product;
+import Model.*;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,71 +45,143 @@ public class ProductController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("MainScreen.fxml"));
+        loader.setLocation(getClass().getResource("../Views/MainScreen.fxml"));
         try {
             mainUI = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.mainController = loader.getController();
-        product = new Product(0,"",0,0,0,0);
+        loadPartsList();
+        this.product = new Product(0,"",0,0,0,0);
     }
-    public void loadProductID(int id){
-        Product selectedProduct = mainController.sampleInventory.lookupProduct(id);
-        loadProduct(selectedProduct);
-        System.out.println(selectedProduct.getAllAssociatedParts().size());
-        loadAssociatedParts(selectedProduct.getAllAssociatedParts());
-    }
-    private void loadProduct(Product selectedProduct){
+    public void loadProduct(Product selectedProduct){
+        this.product = selectedProduct;
         productId.setText(selectedProduct.getId()+"");
         productName.setText(selectedProduct.getName());
         productInv.setText(selectedProduct.getStock()+"");
         productPrice.setText(selectedProduct.getPrice()+"");
         productMax.setText(selectedProduct.getMax()+"");
         productMin.setText(selectedProduct.getMin()+"");
+        loadAssociatedParts(selectedProduct.getAllAssociatedParts());
     }
     private void loadAssociatedParts(ObservableList<Part> parts){
-        System.out.println(parts.toString());
         associatedPartsTable.setItems(parts);
-        associatedPartID.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        associatedPartName.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        associatedPartInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
-//        associatedPartPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
-//    public void loadPartsList(ObservableList<Part> allParts){
-//        availablePartsTable.setItems(allParts);
-//        availablePartsID.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        availablePartsName.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        availablePartsInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
-//        availablePartsPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-//    }
+    public void loadPartsList(){
+        availablePartsID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        availablePartsName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        availablePartsInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        availablePartsPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        availablePartsTable.setItems(InventoryManager.getInventory().getAllParts());
 
-    @FXML
-    private void exitWindow(ActionEvent actionEvent) throws IOException {
-        Scene scene = new Scene(mainUI);
-        Stage window = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
+        associatedPartID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        associatedPartName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        associatedPartInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        associatedPartPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
     public void searchAvailablePartsButton(ActionEvent actionEvent) {
-        availablePartsTable.setItems(mainController.sampleInventory.lookupPart(searchAvailableParts.getText()));
+        try {
+            ObservableList<Part> matchingParts = FXCollections.observableArrayList(InventoryManager.getInventory().lookupPart(new Integer(searchAvailableParts.getText())));
+            availablePartsTable.setItems(matchingParts);
+        } catch (NumberFormatException e){
+            availablePartsTable.setItems(InventoryManager.getInventory().lookupPart(searchAvailableParts.getText()));
+        }
     }
     public void newAssociatedPart(ActionEvent actionEvent){
-        product.addAssociatedPart(availablePartsTable.getSelectionModel().getSelectedItem());
+        Part part = availablePartsTable.getSelectionModel().getSelectedItem();
+        if (product.getAllAssociatedParts().contains(part)){
+            AlertBox.display("Warning.", "Associated Parts cannot be duplicated.");
+            return;
+        }
+        product.addAssociatedPart(part);
+        loadAssociatedParts(product.getAllAssociatedParts());
     }
     public void delAssociatedPart(ActionEvent actionEvent){
-        product.deleteAssociatedPart(associatedPartsTable.getSelectionModel().getSelectedItem());
+        if (AlertBox.confirm("Delete")) {
+            Part part = associatedPartsTable.getSelectionModel().getSelectedItem();
+            product.deleteAssociatedPart(part);
+        }
     }
     public void addProductButtAction(ActionEvent actionEvent) throws IOException {
-        product.setId(mainController.sampleInventory.getAllProducts().size());
+        if (!validateProduct()){
+            return;
+        }
+        product.setId(InventoryManager.generateProductId());
         product.setName(productName.getText());
         product.setPrice(Double.parseDouble(productPrice.getText()));
         product.setStock(Integer.parseInt(productInv.getText()));
         product.setMin(Integer.parseInt(productMin.getText()));
         product.setMax(Integer.parseInt(productMax.getText()));
 
-        mainController.sampleInventory.addProduct(product);
+        InventoryManager.getInventory().addProduct(product);
         exitWindow(actionEvent);
+    }
+    public void updateProductButtAction(ActionEvent actionEvent) throws IOException {
+        if (!validateProduct()){
+            return;
+        }
+        product.setName(productName.getText());
+        product.setPrice(Double.parseDouble(productPrice.getText()));
+        product.setStock(Integer.parseInt(productInv.getText()));
+        product.setMin(Integer.parseInt(productMin.getText()));
+        product.setMax(Integer.parseInt(productMax.getText()));
+
+        InventoryManager.getInventory().updateProduct(new Integer(productId.getText()),product);
+        exitWindow(actionEvent);
+    }
+    public void cancelProduct(ActionEvent actionEvent) throws IOException {
+        if (AlertBox.confirm("Cancel")) {
+            exitWindow(actionEvent);
+        }
+    }
+    private void exitWindow(ActionEvent actionEvent) throws IOException {
+        Scene scene = new Scene(mainUI);
+        Stage window = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
+    private boolean validateProduct(){
+        try {
+            Integer id = new Integer(productId.getText());
+            Integer stock = new Integer(productInv.getText());
+            Integer max = new Integer(productMax.getText());
+            Integer min = new Integer(productMin.getText());
+            Double price = Double.parseDouble(productPrice.getText());
+
+            if (min >= max){
+                AlertBox.display("Error", "Min must be less than Max!");
+                return false;
+            }
+            if (stock > max){
+                AlertBox.display("Error", "Inventory Stock cannot be more than Max Stock.");
+                return false;
+            }
+            if (stock < min){
+                AlertBox.display("Error", "Inventory Stock cannot be less than Min Stock.");
+                return false;
+            }
+            if ((stock < 0) || (max < 1) || (min < 0)){
+                AlertBox.display("Error", "Stock and Min must not be less than 0. Max must be at least 1.");
+                return false;
+            }
+            if (price < InventoryManager.sumOfParts(id)){
+                AlertBox.display("Error", "A product cannot cost less than the sum of it's parts.");
+                return false;
+            }
+            if (associatedPartsTable.getItems().isEmpty()){
+                AlertBox.display("No parts.", "A product must have at least 1 associated part.");
+                return false;
+            }
+            return true;
+        } catch (NumberFormatException e) {
+            AlertBox.display("Uh-Oh", "Use only numbers for non-name fields.");
+            e.printStackTrace();
+            return false;
+        } catch (NullPointerException e){
+            AlertBox.display("Blank Field", "Please enter a value for all fields.");
+            e.printStackTrace();
+            return false;
+        }
     }
 }

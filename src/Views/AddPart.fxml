@@ -78,9 +78,9 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <RadioButton fx:id="outSourcedType" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="110.0" text="Outsourced" GridPane.columnIndex="3" toggleGroup="$type">
+                  <RadioButton fx:id="outSourcedType" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="110.0" text="Outsourced" toggleGroup="$type" GridPane.columnIndex="3">
                      <toggleGroup>
-                        <ToggleGroup fx:id="type"/>
+                        <ToggleGroup fx:id="type" />
                      </toggleGroup></RadioButton>
                   <RadioButton fx:id="inHouseType" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="110.0" selected="true" text="In-House" toggleGroup="$type" GridPane.columnIndex="2" />
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Add Part" textAlignment="CENTER">
@@ -131,7 +131,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#exitWindow" prefHeight="25.0" prefWidth="96.0" text="Cancel" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                  <Button mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="96.0" text="Cancel" GridPane.columnIndex="4" GridPane.rowIndex="7" />
                </children>
             </GridPane>
       </children>
